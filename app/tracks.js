@@ -4,17 +4,11 @@ const Track = require('../models/Tracks');
 
 const createRouter = () => {
     router.get('/', async (req, res) => {
-        let query, result;
-
+        let query;
         if (req.query.album) {
             query = {album: req.query.album}
-            result = await Track.find(query).populate("album");
-        } else if (req.query.artist) {
-            query = {artist: req.query.artist}
-            result = await Track.find("album.artist")
-            console.log(query);
         }
-
+       const result = await Track.find(query).populate("album");
         if (result) {
             res.send(result);
         } else {
