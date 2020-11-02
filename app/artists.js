@@ -1,21 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const multer = require("multer");
-const path = require("path");
 const config = require("../config");
-const {nanoid} = require('nanoid');
 const Artist = require('../models/Artists');
-
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, config.uploadPath);
-    },
-    filename: (req, file, cb) => {
-        cb(null, nanoid() + path.extname(file.originalname));
-    }
-});
-
-const upload = multer({storage});
 
 const createRouter = () => {
     router.get('/', async (req, res) => {
@@ -27,7 +13,7 @@ const createRouter = () => {
         }
     });
 
-    router.post('/', upload.single("image"), async (req, res) => {
+    router.post('/', config.upload.single("image"), async (req, res) => {
         const artistData = req.body;
         if (req.file) {
             artistData.image = req.file.filename;

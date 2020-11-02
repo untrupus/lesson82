@@ -1,8 +1,6 @@
 const express = require('express');
 const router = express.Router();
-// const multer = require("multer");
-// const path = require("path");
-// const {nanoid} = require('nanoid');
+const config = require("../config");
 const Album = require('../models/Albums');
 
 const createRouter = () => {
@@ -11,7 +9,7 @@ const createRouter = () => {
         if (req.query.artist) {
             query = {artist: req.query.artist}
         }
-        const result = await Album.find(query).populate("artist");
+        const result = await Album.find(query).populate({path: "artist", select: "name"});
         if (result) {
             res.send(result);
         } else {
@@ -28,8 +26,11 @@ const createRouter = () => {
         }
     });
 
-    router.post('/', async (req, res) => {
+    router.post('/', config.upload.single("image"), async (req, res) => {
         const albumData = req.body;
+        if (req.file) {
+            albumData.image = req.file.filename;
+        }
         const album = new Album(albumData)
         try {
             await album.save();
