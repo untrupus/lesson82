@@ -13,6 +13,11 @@ const TrackSchema = new Schema({
         type: Schema.Types.ObjectID,
         ref: "Album",
         required: true
+    },
+    number: {
+        type: Number,
+        required: true,
+        unique: true
     }
 });
 

@@ -5,13 +5,21 @@ const artists = require("./app/artists");
 const albums = require("./app/albums");
 const tracks = require("./app/tracks");
 const users = require("./app/users");
+const cors = require('cors');
 const port = 8000;
 
+app.use(cors());
 app.use(express.json());
 app.use(express.static('public'));
 
+const options = {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    autoIndex: true
+};
+
 const run = async () => {
-    await mongoose.connect("mongodb://localhost/lastFM", {useNewUrlParser: true, useUnifiedTopology: true});
+    await mongoose.connect("mongodb://localhost/lastFM", options);
     app.use("/artists", artists);
     app.use("/albums", albums);
     app.use("/tracks", tracks);
