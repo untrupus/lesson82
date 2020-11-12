@@ -8,7 +8,8 @@ const createRouter = () => {
         if (req.query.album) {
             query = {album: req.query.album}
         }
-       const result = await Track.find(query).populate("album");
+       const result = await Track.find(query).sort(
+           {"number": 1}).populate({path: "album", populate: {path: "artist"}});
         if (result) {
             res.send(result);
         } else {

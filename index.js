@@ -14,8 +14,7 @@ app.use(express.static('public'));
 
 const options = {
     useNewUrlParser: true,
-    useUnifiedTopology: true,
-    autoIndex: true
+    useUnifiedTopology: true
 };
 
 const run = async () => {

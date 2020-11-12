@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const config = require("../config");
 const Album = require('../models/Albums');
+const Tracks = require('../models/Tracks');
 
 const createRouter = () => {
     router.get('/', async (req, res) => {
@@ -9,9 +10,14 @@ const createRouter = () => {
         if (req.query.artist) {
             query = {artist: req.query.artist}
         }
-        const result = await Album.find(query).populate({path: "artist", select: "name"});
+        const result = await Album.find(query).sort({"year": 1}).populate({path: "artist", select: "name"});
+        const newResult = result.map(async album => {
+            const tracks = await Tracks.find({album: album._id});
+            return {...album._doc, count: tracks.length};
+        });
+        const qwer = await Promise.all(newResult);
         if (result) {
-            res.send(result);
+            res.send(qwer);
         } else {
             res.sendStatus(404);
         }
