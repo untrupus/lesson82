@@ -18,7 +18,8 @@ const TrackSchema = new Schema({
         type: Number,
         required: true,
         unique: true
-    }
+    },
+    youtube: String
 });
 
 TrackSchema.plugin(idValidator);

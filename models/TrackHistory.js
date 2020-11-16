@@ -4,11 +4,13 @@ const Schema = mongoose.Schema;
 
 const TrackHistorySchema = new Schema({
     user: {
-        type: String,
+        type: Schema.Types.ObjectID,
+        ref: "User",
         required: true
     },
     track: {
-        type: String,
+        type: Schema.Types.ObjectID,
+        ref: "Track",
         required: true
     },
     datetime: {
