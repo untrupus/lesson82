@@ -17,5 +17,9 @@ const upload = multer({storage});
 module.exports = {
     upload,
     rootPath,
-    // uploadPath: path.join(rootPath, 'public/uploads')
+    uploadPath: path.join(rootPath, 'public/uploads'),
+    db: {
+        name: "lastFM",
+        url: "mongodb://localhost"
+    }
 };

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const config = require("../config");
-const Artist = require('../models/Artists');
+const Artist = require('../models/Artist');
 
 const createRouter = () => {
     router.get('/', async (req, res) => {

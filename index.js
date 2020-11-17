@@ -6,6 +6,7 @@ const albums = require("./app/albums");
 const tracks = require("./app/tracks");
 const users = require("./app/users");
 const cors = require('cors');
+const config = require("./config");
 const port = 8000;
 
 app.use(cors());
@@ -18,7 +19,7 @@ const options = {
 };
 
 const run = async () => {
-    await mongoose.connect("mongodb://localhost/lastFM", options);
+    await mongoose.connect(config.db.url + "/" + config.db.name, options);
     app.use("/artists", artists);
     app.use("/albums", albums);
     app.use("/tracks", tracks);

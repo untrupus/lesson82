@@ -17,7 +17,6 @@ const TrackSchema = new Schema({
     number: {
         type: Number,
         required: true,
-        unique: true
     },
     youtube: String
 });

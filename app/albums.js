@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const config = require("../config");
-const Album = require('../models/Albums');
-const Tracks = require('../models/Tracks');
+const Album = require('../models/Album');
+const Tracks = require('../models/Track');
 
 const createRouter = () => {
     router.get('/', async (req, res) => {
