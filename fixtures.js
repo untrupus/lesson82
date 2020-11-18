@@ -22,15 +22,18 @@ db.once("open", async () => {
         console.log("Collection were not presented!");
     }
 
-    const [death, nin] = await Artist.create({
+    const [death, nin, morfer] = await Artist.create({
         name: "Death",
         image: "death.jpg"
     }, {
         name: "NIN",
         image: "nin.png"
+    },{
+        name: "Morfer",
+        image: "morfer.png"
     });
 
-    const [human, symbolic, spiral] = await Album.create({
+    const [human, symbolic, spiral, tribunal] = await Album.create({
         name: "Human",
         year: 1991,
         artist: death._id,
@@ -45,9 +48,14 @@ db.once("open", async () => {
         year: 1994,
         artist: nin._id,
         image: "downward.jpg"
+    }, {
+        name: "Tribunal",
+        year: 2020,
+        artist: morfer._id,
+        image: "tribunal.png"
     });
 
-    const [lack, see, sacred, crystal, hurt] = await Track.create({
+    const [lack, see, sacred, crystal, hurt, vandallen] = await Track.create({
             name: "Lack Of Comprehension",
             duration: "3.47",
             album: human._id,
@@ -76,8 +84,15 @@ db.once("open", async () => {
             album: spiral._id,
             number: 6,
             youtube: "6oGqIfnIAEA"
+        }, {
+            name: "Vandallen",
+            duration: "6.29",
+            album: tribunal._id,
+            number: 666,
+            youtube: "4A2N2u9ee1o"
         },
     );
+
 
     const [user, user1] = await User.create({
         username: "user",
