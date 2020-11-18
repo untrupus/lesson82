@@ -124,6 +124,10 @@ db.once("open", async () => {
             user: user1._id,
             track: hurt._id,
             datetime: "Wed Nov 18 2020 05:59:36 GMT+0600 (Kyrgyzstan Time)"
+        }, {
+            user: user1._id,
+            track: vandallen._id,
+            datetime: "Wed Nov 18 2020 05:19:36 GMT+0600 (Kyrgyzstan Time)"
         },
     );
 
