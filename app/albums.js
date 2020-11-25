@@ -4,6 +4,7 @@ const config = require("../config");
 const Album = require('../models/Album');
 const Tracks = require('../models/Track');
 const auth = require('../middleware/auth');
+const permit = require("../middleware/permit")
 
 const createRouter = () => {
     router.get('/', async (req, res) => {
@@ -35,6 +36,7 @@ const createRouter = () => {
 
     router.post('/', [auth, config.upload.single("image")], async (req, res) => {
         const albumData = req.body;
+        albumData.user = req.user._id;
         if (req.file) {
             albumData.image = req.file.filename;
         }
@@ -44,6 +46,28 @@ const createRouter = () => {
             res.send(album);
         } catch (e) {
             res.status(400).send(e);
+        }
+    });
+
+    router.delete('/:id', [auth, permit("admin")], async (req, res) => {
+        const result = await Album.findByIdAndRemove({_id: req.params.id});
+        if (result) {
+            res.send("Artist removed");
+        } else {
+            res.sendStatus(404);
+        }
+    });
+
+    router.put('/:id', [auth, permit("admin")], async (req, res) => {
+        if (req.body.user) {
+            res.send("You can`t change user");
+        } else {
+            const result = await Album.findByIdAndUpdate(req.params.id, req.body);
+            if (result) {
+                res.send(result);
+            } else {
+                res.sendStatus(404);
+            }
         }
     });
 
