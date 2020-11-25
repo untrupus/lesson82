@@ -24,35 +24,42 @@ db.once("open", async () => {
 
     const [death, nin, morfer] = await Artist.create({
         name: "Death",
-        image: "death.jpg"
+        image: "death.jpg",
+        published: true
     }, {
         name: "NIN",
-        image: "nin.png"
-    },{
+        image: "nin.png",
+        published: true
+    }, {
         name: "Morfer",
-        image: "morfer.png"
+        image: "morfer.png",
+        published: false
     });
 
     const [human, symbolic, spiral, tribunal] = await Album.create({
         name: "Human",
         year: 1991,
         artist: death._id,
-        image: "Human.jpg"
+        image: "Human.jpg",
+        published: false
     }, {
         name: "Symbolic",
         year: 1995,
         artist: death._id,
-        image: "symbolic.jpg"
+        image: "symbolic.jpg",
+        published: true
     }, {
         name: "The Downward Spiral",
         year: 1994,
         artist: nin._id,
-        image: "downward.jpg"
+        image: "downward.jpg",
+        published: true
     }, {
         name: "Tribunal",
         year: 2020,
         artist: morfer._id,
-        image: "tribunal.png"
+        image: "tribunal.png",
+        published: true
     });
 
     const [lack, see, sacred, crystal, hurt, vandallen] = await Track.create({
@@ -60,48 +67,67 @@ db.once("open", async () => {
             duration: "3.47",
             album: human._id,
             number: 5,
-            youtube: "7j8vUbMmOwM"
+            youtube: "7j8vUbMmOwM",
+            published: true,
+            artist: death._id
         }, {
             name: "See Through Dreams",
             duration: "3.56",
             album: human._id,
             number: 6,
+            published: false,
+            artist: death._id
         }, {
             name: "Sacred Serenity",
             duration: "4.29",
             album: symbolic._id,
             number: 3,
-            youtube: "-as4LausEok"
+            youtube: "-as4LausEok",
+            published: true,
+            artist: death._id
         }, {
             name: "Crystal mountain",
             duration: "5.07",
             album: symbolic._id,
             number: 6,
-            youtube: "zguCFjHyVeM"
+            youtube: "zguCFjHyVeM",
+            published: false,
+            artist: death._id
         }, {
             name: "Hurt",
             duration: "3.56",
             album: spiral._id,
             number: 6,
-            youtube: "6oGqIfnIAEA"
+            youtube: "6oGqIfnIAEA",
+            published: true,
+            artist: nin._id
         }, {
             name: "Vandallen",
             duration: "6.29",
             album: tribunal._id,
             number: 666,
-            youtube: "4A2N2u9ee1o"
+            youtube: "4A2N2u9ee1o",
+            published: false,
+            artist: morfer._id
         },
     );
 
 
-    const [user, user1] = await User.create({
+    const [user, user1, admin] = await User.create({
         username: "user",
         password: "123",
-        token: nanoid()
+        token: nanoid(),
+        role: "user"
     }, {
         username: "user1",
         password: "123",
-        token: nanoid()
+        token: nanoid(),
+        role: "user"
+    }, {
+        username: "admin",
+        password: "123",
+        token: nanoid(),
+        role: "admin"
     });
 
     await TrackHistory.create({

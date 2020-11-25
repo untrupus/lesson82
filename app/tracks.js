@@ -4,7 +4,7 @@ const Track = require('../models/Track');
 const auth = require('../middleware/auth');
 
 const createRouter = () => {
-    router.get('/', auth, async (req, res) => {
+    router.get('/',  async (req, res) => {
         let query;
         if (req.query.album) {
             query = {album: req.query.album};
@@ -18,7 +18,7 @@ const createRouter = () => {
         }
     });
 
-    router.post('/', async (req, res) => {
+    router.post('/', auth, async (req, res) => {
         const trackData = req.body;
         const track = new Track(trackData);
         try {

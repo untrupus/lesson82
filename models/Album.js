@@ -8,13 +8,26 @@ const AlbumSchema = new Schema({
         type: String,
         required: true
     },
-    year: Number,
+    year: {
+        type: Number,
+        required: true
+    },
     artist: {
         type: Schema.Types.ObjectID,
         ref: "Artist",
         required: true
     },
-    image: String
+    image: String,
+    published: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
+    user: {
+        type: Schema.Types.ObjectID,
+        ref: "User",
+        required: true
+    }
 });
 
 AlbumSchema.plugin(idValidator);

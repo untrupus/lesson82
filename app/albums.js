@@ -3,6 +3,7 @@ const router = express.Router();
 const config = require("../config");
 const Album = require('../models/Album');
 const Tracks = require('../models/Track');
+const auth = require('../middleware/auth');
 
 const createRouter = () => {
     router.get('/', async (req, res) => {
@@ -32,7 +33,7 @@ const createRouter = () => {
         }
     });
 
-    router.post('/', config.upload.single("image"), async (req, res) => {
+    router.post('/', [auth, config.upload.single("image")], async (req, res) => {
         const albumData = req.body;
         if (req.file) {
             albumData.image = req.file.filename;

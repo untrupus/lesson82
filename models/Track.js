@@ -18,7 +18,22 @@ const TrackSchema = new Schema({
         type: Number,
         required: true,
     },
-    youtube: String
+    artist: {
+        type: Schema.Types.ObjectID,
+        ref: "Artist",
+        required: true
+    },
+    youtube: String,
+    published: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
+    user: {
+        type: Schema.Types.ObjectID,
+        ref: "User",
+        required: true
+    }
 });
 
 TrackSchema.plugin(idValidator);
