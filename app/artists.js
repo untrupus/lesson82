@@ -40,13 +40,13 @@ const createRouter = () => {
         }
     });
 
-    router.put('/:id', [auth, permit("admin")], async (req, res) => {
+    router.patch('/:id', [auth, permit("admin")], async (req, res) => {
         if (req.body.user) {
             res.send("You can`t change user");
         } else {
             const result = await Artist.findByIdAndUpdate(req.params.id, req.body);
             if (result) {
-                res.send(result);
+                res.send('Success');
             } else {
                 res.sendStatus(404);
             }
