@@ -29,7 +29,9 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
-    avatarImage: String
+    fbAvatar: String,
+    avatarImage: String,
+    facebookId: String
 });
 
 UserSchema.pre('save', async function (next) {
