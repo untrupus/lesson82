@@ -1,13 +1,18 @@
 const router = require("express").Router();
 const User = require("../models/User");
+const config = require("../config");
 
-router.post("/", async (req, res) => {
-   try {
-       const user = new User({
-           username: req.body.username,
-           password: req.body.password,
-           email: req.body.email
-       });
+router.post("/", config.upload.single("avatarImage"), async (req, res) => {
+   const userData = {
+       displayName: req.body.displayName,
+       username: req.body.username,
+       password: req.body.password,
+   }
+   if (req.file) {
+        userData.avatarImage = req.file.filename;
+    }
+    const user = new User(userData);
+    try {
        user.generateToken();
        await user.save();
        res.send(user);
