@@ -6,10 +6,17 @@ const SALT_WORK_FACTOR = 10;
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
-    username: {
+    email: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        validate: {
+            validator: async (value) => {
+                const user = await User.findOne({username: value});
+                if (user) return false;
+            },
+            message: (props) => `Пользователь ${props.value} уже существует`
+        }
     },
     password: {
         type: String,
@@ -33,6 +40,10 @@ const UserSchema = new Schema({
     avatarImage: String,
     facebookId: String
 });
+
+UserSchema.path("email").validate(value => {
+    return /^[\w-.]+@(\b[a-z-]+\b)[^-].[a-z]{2,10}$/g.test(value);
+}, "Введите правильный почтовый ящик");
 
 UserSchema.pre('save', async function (next) {
     if (!this.isModified('password')) return next();

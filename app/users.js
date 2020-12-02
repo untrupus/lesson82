@@ -7,7 +7,7 @@ const {nanoid} = require("nanoid");
 router.post("/", config.upload.single("avatarImage"), async (req, res) => {
    const userData = {
        displayName: req.body.displayName,
-       username: req.body.username,
+       email: req.body.email,
        password: req.body.password,
    }
    if (req.file) {
@@ -24,7 +24,7 @@ router.post("/", config.upload.single("avatarImage"), async (req, res) => {
 });
 
 router.post('/sessions', async (req, res) => {
-    const user = await User.findOne({username: req.body.username});
+    const user = await User.findOne({email: req.body.email});
     if (!user) {
         return res.status(400).send({error: 'Username not found'});
     }
@@ -66,7 +66,7 @@ router.post("/facebookLogin", async (req, res) => {
         let user = await User.findOne({facebookId: req.body.id});
         if (!user) {
             user = new User({
-                username: req.body.email,
+                email: req.body.email,
                 password: nanoid(),
                 facebookId: req.body.id,
                 displayName: req.body.name,
