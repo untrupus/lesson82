@@ -26,12 +26,15 @@ db.once("open", async () => {
         username: "user",
         password: "123",
         token: nanoid(),
-        role: "user"
+        role: "user",
+        displayName: "Vegard",
+        avatarImage: "ihsahn.jpeg"
     }, {
         username: "admin",
         password: "123",
         token: nanoid(),
-        role: "admin"
+        role: "admin",
+        displayName: "Admin"
     });
 
     const [death, nin, morfer] = await Artist.create({

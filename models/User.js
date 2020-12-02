@@ -24,7 +24,12 @@ const UserSchema = new Schema({
         required: true,
         default: 'user',
         enum: ['user', 'admin']
-    }
+    },
+    displayName: {
+        type: String,
+        required: true
+    },
+    avatarImage: String
 });
 
 UserSchema.pre('save', async function (next) {
