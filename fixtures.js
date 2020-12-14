@@ -23,14 +23,14 @@ db.once("open", async () => {
     }
 
     const [user, admin] = await User.create({
-        username: "user",
+        email: "asd@asd.asd",
         password: "123",
         token: nanoid(),
         role: "user",
         displayName: "Vegard",
         avatarImage: "ihsahn.jpeg"
     }, {
-        username: "admin",
+        email: "qwe@.qwe.qwe",
         password: "123",
         token: nanoid(),
         role: "admin",

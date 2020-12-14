@@ -12,7 +12,7 @@ const TrackSchema = new Schema({
     album: {
         type: Schema.Types.ObjectID,
         ref: "Album",
-        required: true
+        // required: true
     },
     number: {
         type: Number,
@@ -21,7 +21,7 @@ const TrackSchema = new Schema({
     artist: {
         type: Schema.Types.ObjectID,
         ref: "Artist",
-        required: true
+        // required: true
     },
     youtube: String,
     published: {
